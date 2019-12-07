@@ -1,0 +1,8 @@
+config MEDIATEK_SD_BOOT_PARTSIZE
+	int "Boot (SD Card) filesystem partition size (in MB)"
+	depends on TARGET_mediatek
+	default 32
+config MEDIATEK_MMC_ROOT_PARTSIZE
+	int "Root (MMC Card) filesystem partition size (in MB)"
+	depends on TARGET_mediatek
+	default 1024

@@ -109,6 +109,9 @@ static void to_chs(long sect, unsigned char chs[3])
 	h = sect % heads;
 	sect = sect / heads;
 	c = sect;
+	
+	if (verbose)
+		fprintf(stderr, "c=%d h=%d s=%d\n", c,h,s);
 
 	chs[0] = h;
 	chs[1] = s | ((c >> 2) & 0xC0);

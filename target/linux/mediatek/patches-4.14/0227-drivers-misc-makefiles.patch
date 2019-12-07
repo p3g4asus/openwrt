@@ -1,0 +1,17 @@
+--- a/drivers/misc/Makefile	2019-10-31 12:25:53.369224736 +0100
++++ b/drivers/misc/Makefile	2019-10-31 14:20:05.341510964 +0100
+@@ -75,3 +75,6 @@
+ targets += lkdtm_rodata.o lkdtm_rodata_objcopy.o
+ $(obj)/lkdtm_rodata_objcopy.o: $(obj)/lkdtm_rodata.o FORCE
+ 	$(call if_changed,objcopy)
++
++obj-$(CONFIG_MTK_COMBO)	+= mediatek/
++
+--- a/drivers/misc/Kconfig	2019-10-31 12:25:53.369224736 +0100
++++ b/drivers/misc/Kconfig	2019-10-31 14:18:02.355215390 +0100
+@@ -530,4 +530,5 @@
+ source "drivers/misc/genwqe/Kconfig"
+ source "drivers/misc/echo/Kconfig"
+ source "drivers/misc/cxl/Kconfig"
++source "drivers/misc/mediatek/Kconfig"
+ endmenu

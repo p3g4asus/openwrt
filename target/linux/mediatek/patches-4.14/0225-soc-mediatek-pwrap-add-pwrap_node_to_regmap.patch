@@ -1,0 +1,48 @@
+--- /dev/null	2019-10-29 22:12:48.271999342 +0100
++++ b/include/soc/mediatek/pmic_wrap.h	2019-10-30 10:37:20.583687686 +0100
+@@ -0,0 +1,19 @@
++/*
++ * Copyright (C) 2015 MediaTek Inc.
++ *
++ * This program is free software: you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++ * GNU General Public License for more details.
++ */
++
++#ifndef __SOC_MEDIATEK_PMIC_WRAP_H
++#define __SOC_MEDIATEK_PMIC_WRAP_H
++
++extern struct regmap *pwrap_node_to_regmap(struct device_node *np);
++
++#endif /* __SOC_MEDIATEK_PMIC_WRAP_H */
+--- a/drivers/soc/mediatek/mtk-pmic-wrap.c	2019-10-29 15:28:21.413115212 +0100
++++ b/drivers/soc/mediatek/mtk-pmic-wrap.c	2019-10-30 10:34:51.660666316 +0100
+@@ -1452,6 +1452,23 @@
+ };
+ MODULE_DEVICE_TABLE(of, of_pwrap_match_tbl);
+ 
++struct regmap *pwrap_node_to_regmap(struct device_node *np)
++{
++	struct platform_device *pdev;
++	struct pmic_wrapper *wrp;
++
++	pdev = of_find_device_by_node(np);
++
++	if (!pdev)
++		return ERR_PTR(-ENODEV);
++
++	wrp = platform_get_drvdata(pdev);
++
++	return wrp->regmap;
++}
++EXPORT_SYMBOL_GPL(pwrap_node_to_regmap);
++
++
+ static int pwrap_probe(struct platform_device *pdev)
+ {
+ 	int ret, irq;
